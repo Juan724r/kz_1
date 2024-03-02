@@ -1,5 +1,7 @@
+using System.CodeDom.Compiler;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 
 namespace lab_1._1
 {
@@ -29,8 +31,12 @@ namespace lab_1._1
                     bmp = new Bitmap(originalImage);
 
                     // Отображаем изображение в PictureBox с учетом масштабирования
-                    pictureBox1.Image = originalImage;
+                    //pictureBox1.Dock = DockStyle.Fill;
                     pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                    ResizeImage(originalImage);
+                    //pictureBox1.Image = originalImage;
+
+                    //pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
 
                     // Отображаем гистограмму яркости
                     ShowBrightnessHistogram(originalImage);
@@ -45,14 +51,15 @@ namespace lab_1._1
         private void origBtn_Click(object sender, EventArgs e)
         {
             // Показываем оригинальное изображение
-            pictureBox1.Image = originalImage;
+            pictureBox1.Image = bmp;
+            trackBar1.Value = 0;
         }
 
         private void ApplyColorMatrix(float[][] matrix)
         {
             if (originalImage != null)
             {
-                Bitmap bmp = new Bitmap(originalImage.Width, originalImage.Height);
+                Bitmap bmp = new Bitmap(this.bmp.Width, this.bmp.Height);
 
                 using (Graphics g = Graphics.FromImage(bmp))
                 {
@@ -179,17 +186,21 @@ namespace lab_1._1
                 {
                     // a) Внешняя рамка квадратного окна W размера 11x11 вокруг пикселя p
                     DrawWindow(x, y);
-                    // b) Координаты пикселя p и значения компонентов RGB в этой точке
+
+                    // b) Координаты пикселя p
                     Color pixelColor = bmp.GetPixel(x, y);
-                    string pixelInfo = string.Format("Координаты: ({0}, {1})\nRGB: ({2}, {3}, {4})",
-                                                      x, y, pixelColor.R, pixelColor.G, pixelColor.B);
+                    string pixelInfo = string.Format("Координаты: ({0}, {1})", x, y);
                     labelPixelInfo.Text = pixelInfo;
 
-                    // c) Интенсивность [R(p) + G(p) + B(p)] / 3 в точке p
+                    // c) Значения компонентов RGB в этой точке
+                    string rgbInfo = string.Format("RGB: ({0}, {1}, {2})", pixelColor.R, pixelColor.G, pixelColor.B);
+                    labelRGB.Text = rgbInfo;
+
+                    // d) Интенсивность [R(p) + G(p) + B(p)] / 3 в точке p
                     int intensity = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
                     labelIntensity.Text = "Интенсивность: " + intensity.ToString();
 
-                    // d) Среднее и стандартное отклонение
+                    // e) Среднее и стандартное отклонение
                     CalculateMeanAndStandardDeviation(x, y);
                 }
             }
@@ -253,6 +264,38 @@ namespace lab_1._1
             labelStandardDeviation.Text = "Стандартное отклонение: " + standardDeviation.ToString("F2");
         }
 
+        private void ResizeImage(Image originalImage)
+        {
+            int width = pictureBox1.Width;
+            int height = pictureBox1.Height;
+            bmp = new Bitmap(originalImage, new Size(width, height));
+            pictureBox1.Image = bmp;
+        }
 
+        private void BrightnessControl(Bitmap image, int power)
+        {
+            for (int i = 0; i < image.Width; i++)
+            {
+                for (int j = 0; j < image.Height; j++)
+                {
+                    Color pixelColor = image.GetPixel(i, j);
+
+                    int newRed = Math.Max(0, Math.Min(255, pixelColor.R + power));
+                    int newGreen = Math.Max(0, Math.Min(255, pixelColor.G + power));
+                    int newBlue = Math.Max(0, Math.Min(255, pixelColor.B + power));
+
+                    image.SetPixel(i, j, Color.FromArgb(newRed, newGreen, newBlue));
+
+                    pictureBox1.Image = image;
+                }
+            }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            int power = trackBar1.Value;
+            Bitmap tempBmp = new Bitmap(bmp);
+            BrightnessControl(tempBmp, power);
+        }
     }
 }

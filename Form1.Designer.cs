@@ -60,15 +60,17 @@
             button14 = new Button();
             button15 = new Button();
             button16 = new Button();
-            textBox1 = new TextBox();
             textBox2 = new TextBox();
             textBox3 = new TextBox();
             textBox4 = new TextBox();
             label9 = new Label();
             label10 = new Label();
             label11 = new Label();
+            labelRGB = new Label();
+            trackBar1 = new TrackBar();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
             // loadBtn
@@ -153,36 +155,36 @@
             labelPixelInfo.AutoSize = true;
             labelPixelInfo.Location = new Point(417, 451);
             labelPixelInfo.Name = "labelPixelInfo";
-            labelPixelInfo.Size = new Size(38, 15);
+            labelPixelInfo.Size = new Size(78, 15);
             labelPixelInfo.TabIndex = 9;
-            labelPixelInfo.Text = "label1";
+            labelPixelInfo.Text = "Координаты:";
             // 
             // labelIntensity
             // 
             labelIntensity.AutoSize = true;
-            labelIntensity.Location = new Point(417, 466);
+            labelIntensity.Location = new Point(417, 480);
             labelIntensity.Name = "labelIntensity";
-            labelIntensity.Size = new Size(38, 15);
+            labelIntensity.Size = new Size(94, 15);
             labelIntensity.TabIndex = 10;
-            labelIntensity.Text = "label2";
+            labelIntensity.Text = "Интенсивность:";
             // 
             // labelMean
             // 
             labelMean.AutoSize = true;
-            labelMean.Location = new Point(417, 481);
+            labelMean.Location = new Point(417, 495);
             labelMean.Name = "labelMean";
-            labelMean.Size = new Size(38, 15);
+            labelMean.Size = new Size(56, 15);
             labelMean.TabIndex = 11;
-            labelMean.Text = "label3";
+            labelMean.Text = "Среднее:";
             // 
             // labelStandardDeviation
             // 
             labelStandardDeviation.AutoSize = true;
-            labelStandardDeviation.Location = new Point(417, 496);
+            labelStandardDeviation.Location = new Point(417, 510);
             labelStandardDeviation.Name = "labelStandardDeviation";
-            labelStandardDeviation.Size = new Size(38, 15);
+            labelStandardDeviation.Size = new Size(149, 15);
             labelStandardDeviation.TabIndex = 12;
-            labelStandardDeviation.Text = "label3";
+            labelStandardDeviation.Text = "Стандартное отклоненин:";
             // 
             // label1
             // 
@@ -364,13 +366,6 @@
             button16.Text = "button16";
             button16.UseVisualStyleBackColor = true;
             // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(12, 105);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 37;
-            // 
             // textBox2
             // 
             textBox2.Location = new Point(158, 205);
@@ -419,18 +414,38 @@
             label11.TabIndex = 43;
             label11.Text = "синий";
             // 
+            // labelRGB
+            // 
+            labelRGB.AutoSize = true;
+            labelRGB.Location = new Point(417, 466);
+            labelRGB.Name = "labelRGB";
+            labelRGB.Size = new Size(32, 15);
+            labelRGB.TabIndex = 44;
+            labelRGB.Text = "RGB:";
+            // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(17, 101);
+            trackBar1.Maximum = 255;
+            trackBar1.Minimum = -255;
+            trackBar1.Name = "trackBar1";
+            trackBar1.Size = new Size(265, 45);
+            trackBar1.TabIndex = 46;
+            trackBar1.Scroll += trackBar1_Scroll;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1175, 531);
+            Controls.Add(trackBar1);
+            Controls.Add(labelRGB);
             Controls.Add(label11);
             Controls.Add(label10);
             Controls.Add(label9);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
-            Controls.Add(textBox1);
             Controls.Add(button15);
             Controls.Add(button16);
             Controls.Add(button13);
@@ -467,6 +482,7 @@
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -505,12 +521,13 @@
         private Button button14;
         private Button button15;
         private Button button16;
-        private TextBox textBox1;
         private TextBox textBox2;
         private TextBox textBox3;
         private TextBox textBox4;
         private Label label9;
         private Label label10;
         private Label label11;
+        private Label labelRGB;
+        private TrackBar trackBar1;
     }
 }

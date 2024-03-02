@@ -8,24 +8,26 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Juan\\.nuget\\packages\\": {}
+    "C:\\Users\\F01K3R\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\University\\KZ\\lab_1\\lab_1.1.csproj",
+      "projectUniqueName": "C:\\Users\\F01K3R\\Source\\Repos\\kz_1\\lab_1.1.csproj",
       "projectName": "lab_1.1",
-      "projectPath": "D:\\University\\KZ\\lab_1\\lab_1.1.csproj",
-      "packagesPath": "C:\\Users\\Juan\\.nuget\\packages\\",
-      "outputPath": "D:\\University\\KZ\\lab_1\\obj\\",
+      "projectPath": "C:\\Users\\F01K3R\\Source\\Repos\\kz_1\\lab_1.1.csproj",
+      "packagesPath": "C:\\Users\\F01K3R\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\F01K3R\\Source\\Repos\\kz_1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Juan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\F01K3R\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -38,6 +40,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -62,7 +69,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }
