@@ -9,7 +9,8 @@ namespace lab_1._1
     {
         private Image originalImage;
         private Bitmap bmp;
-        private bool filtered = false;
+        private bool isFiltered = false;
+        private bool isNegative = false;
         Image currImage;
         public Form1()
         {
@@ -408,7 +409,7 @@ namespace lab_1._1
 
         private void filterBtn_Click(object sender, EventArgs e)
         {
-            if (!filtered)
+            if (!isFiltered)
             {
                 currImage = pictureBox1.Image;
                 Bitmap bt = (Bitmap)pictureBox1.Image;
@@ -416,14 +417,96 @@ namespace lab_1._1
                 Color[][] filteredMatrix = ApplyMedianFilter(cl, 5);
                 Bitmap res = GetBitmapFromColorMatrix(filteredMatrix);
                 pictureBox1.Image = res;
-                filtered = true;
+                isFiltered = true;
             }
             else
             {
-                pictureBox1.Image = currImage; 
-                filtered = false;
+                pictureBox1.Image = currImage;
+                isFiltered = false;
             }
-            
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (!isFiltered)
+            {
+                currImage = pictureBox1.Image;
+                Bitmap btm = new Bitmap(pictureBox1.Image);
+                pictureBox1.Image = CreateNegativeImage(btm);
+            }
+            else
+            {
+                pictureBox1.Image = currImage;
+                isFiltered = false;
+            }
+        }
+        public Bitmap CreateNegativeImage(Bitmap originalBitmap)
+        {
+            int width = originalBitmap.Width;
+            int height = originalBitmap.Height;
+            Bitmap negativeBitmap = new Bitmap(width, height);
+
+            // Проход по каждому пикселю изображения
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    Color pixelColor = originalBitmap.GetPixel(x, y);
+
+                    // Вычисление инверсии цвета пикселя
+                    int newR = 255 - pixelColor.R;
+                    int newG = 255 - pixelColor.G;
+                    int newB = 255 - pixelColor.B;
+
+                    // Установка инверсного цвета пикселя в результирующем изображении
+                    negativeBitmap.SetPixel(x, y, Color.FromArgb(newR, newG, newB));
+                }
+            }
+
+            return negativeBitmap;
+        }
+
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            int power = trackBar2.Value;
+            label12.Text = power.ToString();
+            pictureBox1.Image = AdjustContrast(bmp, power);
+        }
+        public Bitmap AdjustContrast(Bitmap originalBitmap, float contrast)
+        {
+            if (contrast < -100 || contrast > 100)
+            {
+                throw new ArgumentException("Contrast value must be between -100 and 100.");
+            }
+
+            float factor = (100f + contrast) / 100f;
+            Bitmap adjustedBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
+
+            // Проход по каждому пикселю изображения
+            for (int x = 0; x < originalBitmap.Width; x++)
+            {
+                for (int y = 0; y < originalBitmap.Height; y++)
+                {
+                    Color originalColor = originalBitmap.GetPixel(x, y);
+
+                    // Вычисление новых значений цветов пикселя с учетом контраста
+                    int newRed = (int)(factor * (originalColor.R - 128) + 128);
+                    int newGreen = (int)(factor * (originalColor.G - 128) + 128);
+                    int newBlue = (int)(factor * (originalColor.B - 128) + 128);
+
+                    // Ограничение значений цветов в диапазоне от 0 до 255
+                    newRed = Math.Max(0, Math.Min(255, newRed));
+                    newGreen = Math.Max(0, Math.Min(255, newGreen));
+                    newBlue = Math.Max(0, Math.Min(255, newBlue));
+
+                    // Установка нового цвета пикселя в результирующем изображении
+                    adjustedBitmap.SetPixel(x, y, Color.FromArgb(newRed, newGreen, newBlue));
+                }
+            }
+
+            return adjustedBitmap;
         }
     }
 }

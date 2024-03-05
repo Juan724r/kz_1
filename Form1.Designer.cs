@@ -48,14 +48,11 @@
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            button5 = new Button();
-            button6 = new Button();
             button7 = new Button();
             button8 = new Button();
             button9 = new Button();
             button10 = new Button();
             mirrorBtn = new Button();
-            button13 = new Button();
             filterBtn = new Button();
             button15 = new Button();
             button16 = new Button();
@@ -67,9 +64,12 @@
             label11 = new Label();
             labelRGB = new Label();
             trackBar1 = new TrackBar();
+            trackBar2 = new TrackBar();
+            label12 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
             SuspendLayout();
             // 
             // loadBtn
@@ -265,26 +265,6 @@
             label8.TabIndex = 20;
             label8.Text = "пока хз";
             // 
-            // button5
-            // 
-            button5.Location = new Point(182, 468);
-            button5.Margin = new Padding(3, 4, 3, 4);
-            button5.Name = "button5";
-            button5.Size = new Size(103, 39);
-            button5.TabIndex = 26;
-            button5.Text = "увеличить";
-            button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            button6.Location = new Point(59, 468);
-            button6.Margin = new Padding(3, 4, 3, 4);
-            button6.Name = "button6";
-            button6.Size = new Size(105, 39);
-            button6.TabIndex = 25;
-            button6.Text = "уменьшить";
-            button6.UseVisualStyleBackColor = true;
-            // 
             // button7
             // 
             button7.Location = new Point(182, 557);
@@ -304,6 +284,7 @@
             button8.TabIndex = 27;
             button8.Text = "button8";
             button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
             // 
             // button9
             // 
@@ -336,16 +317,6 @@
             mirrorBtn.UseVisualStyleBackColor = true;
             mirrorBtn.Click += mirrorBtn_Click;
             // 
-            // button13
-            // 
-            button13.Location = new Point(1040, 345);
-            button13.Margin = new Padding(3, 4, 3, 4);
-            button13.Name = "button13";
-            button13.Size = new Size(87, 39);
-            button13.TabIndex = 34;
-            button13.Text = "button13";
-            button13.UseVisualStyleBackColor = true;
-            // 
             // filterBtn
             // 
             filterBtn.Location = new Point(918, 345);
@@ -353,7 +324,7 @@
             filterBtn.Name = "filterBtn";
             filterBtn.Size = new Size(87, 39);
             filterBtn.TabIndex = 33;
-            filterBtn.Text = "button14";
+            filterBtn.Text = "Фильтр";
             filterBtn.UseVisualStyleBackColor = true;
             filterBtn.Click += filterBtn_Click;
             // 
@@ -448,11 +419,32 @@
             trackBar1.TabIndex = 46;
             trackBar1.Scroll += trackBar1_Scroll;
             // 
+            // trackBar2
+            // 
+            trackBar2.Location = new Point(19, 473);
+            trackBar2.Margin = new Padding(3, 4, 3, 4);
+            trackBar2.Maximum = 100;
+            trackBar2.Name = "trackBar2";
+            trackBar2.Size = new Size(303, 56);
+            trackBar2.TabIndex = 47;
+            trackBar2.Value = 50;
+            trackBar2.Scroll += trackBar2_Scroll;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(369, 484);
+            label12.Name = "label12";
+            label12.Size = new Size(0, 20);
+            label12.TabIndex = 48;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1343, 708);
+            Controls.Add(label12);
+            Controls.Add(trackBar2);
             Controls.Add(trackBar1);
             Controls.Add(labelRGB);
             Controls.Add(label11);
@@ -463,15 +455,12 @@
             Controls.Add(textBox2);
             Controls.Add(button15);
             Controls.Add(button16);
-            Controls.Add(button13);
             Controls.Add(filterBtn);
             Controls.Add(mirrorBtn);
             Controls.Add(button9);
             Controls.Add(button10);
             Controls.Add(button7);
             Controls.Add(button8);
-            Controls.Add(button5);
-            Controls.Add(button6);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -498,6 +487,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHistogram).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -524,14 +514,11 @@
         private Label label6;
         private Label label7;
         private Label label8;
-        private Button button5;
-        private Button button6;
         private Button button7;
         private Button button8;
         private Button button9;
         private Button button10;
         private Button mirrorBtn;
-        private Button button13;
         private Button filterBtn;
         private Button button15;
         private Button button16;
@@ -543,5 +530,7 @@
         private Label label11;
         private Label labelRGB;
         private TrackBar trackBar1;
+        private TrackBar trackBar2;
+        private Label label12;
     }
 }
