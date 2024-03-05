@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\F01K3R\\Source\\Repos\\kz_1\\lab_1.1.csproj": {}
+    "D:\\University\\KZ\\lab_1\\lab_1.1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\F01K3R\\Source\\Repos\\kz_1\\lab_1.1.csproj": {
+    "D:\\University\\KZ\\lab_1\\lab_1.1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\F01K3R\\Source\\Repos\\kz_1\\lab_1.1.csproj",
+        "projectUniqueName": "D:\\University\\KZ\\lab_1\\lab_1.1.csproj",
         "projectName": "lab_1.1",
-        "projectPath": "C:\\Users\\F01K3R\\Source\\Repos\\kz_1\\lab_1.1.csproj",
-        "packagesPath": "C:\\Users\\F01K3R\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\F01K3R\\Source\\Repos\\kz_1\\obj\\",
+        "projectPath": "D:\\University\\KZ\\lab_1\\lab_1.1.csproj",
+        "packagesPath": "C:\\Users\\Juan\\.nuget\\packages\\",
+        "outputPath": "D:\\University\\KZ\\lab_1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\F01K3R\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Juan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0-windows"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -63,7 +56,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

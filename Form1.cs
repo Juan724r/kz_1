@@ -9,6 +9,8 @@ namespace lab_1._1
     {
         private Image originalImage;
         private Bitmap bmp;
+        private bool filtered = false;
+        Image currImage;
         public Form1()
         {
             InitializeComponent();
@@ -296,6 +298,132 @@ namespace lab_1._1
             int power = trackBar1.Value;
             Bitmap tempBmp = new Bitmap(bmp);
             BrightnessControl(tempBmp, power);
+        }
+
+        public Color[][] GetBitMapColorMatrix(Bitmap bitmap)
+        {
+
+            int hight = bitmap.Height;
+            int width = bitmap.Width;
+
+            Color[][] colorMatrix = new Color[width][];
+            for (int i = 0; i < width; i++)
+            {
+                colorMatrix[i] = new Color[hight];
+                for (int j = 0; j < hight; j++)
+                {
+                    colorMatrix[i][j] = bitmap.GetPixel(i, j);
+                }
+            }
+            return colorMatrix;
+        }
+
+        public Bitmap GetBitmapFromColorMatrix(Color[][] colorMatrix)
+        {
+            int width = colorMatrix.Length;
+            int height = colorMatrix[0].Length;
+
+            Bitmap bitmap = new Bitmap(width, height);
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    bitmap.SetPixel(i, j, colorMatrix[i][j]);
+                }
+            }
+
+            return bitmap;
+        }
+
+        public Bitmap GetReversedBitmapFromColorMatrix(Color[][] colorMatrix)
+        {
+            int width = colorMatrix.Length;
+            int height = colorMatrix[0].Length;
+
+            Bitmap bitmap = new Bitmap(width, height);
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    bitmap.SetPixel(width - i - 1, j, colorMatrix[i][j]);
+                }
+            }
+
+            return bitmap;
+        }
+
+        private void mirrorBtn_Click(object sender, EventArgs e)
+        {
+            Bitmap bt = (Bitmap)pictureBox1.Image;
+            Color[][] cl = GetBitMapColorMatrix(bt);
+            pictureBox1.Image = GetReversedBitmapFromColorMatrix(cl);
+        }
+
+        public Color[][] ApplyMedianFilter(Color[][] colorMatrix, int filterSize)
+        {
+            int width = colorMatrix.Length;
+            int height = colorMatrix[0].Length;
+            Color[][] result = new Color[width][];
+
+            // Проход по каждому пикселю изображения
+            for (int x = 0; x < width; x++)
+            {
+                result[x] = new Color[height];
+                for (int y = 0; y < height; y++)
+                {
+                    // Создание массива для хранения значений цветов в окрестности пикселя
+                    List<Color> neighborhoodColors = new List<Color>();
+
+                    // Проход по окрестности пикселя
+                    for (int i = -filterSize / 2; i <= filterSize / 2; i++)
+                    {
+                        for (int j = -filterSize / 2; j <= filterSize / 2; j++)
+                        {
+                            int neighborX = x + i;
+                            int neighborY = y + j;
+
+                            // Проверка границ окрестности
+                            if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
+                            {
+                                neighborhoodColors.Add(colorMatrix[neighborX][neighborY]);
+                            }
+                        }
+                    }
+
+                    // Сортировка массива цветов окрестности
+                    neighborhoodColors.Sort((c1, c2) => c1.GetBrightness().CompareTo(c2.GetBrightness()));
+
+                    // Выбор медианного цвета
+                    Color medianColor = neighborhoodColors[neighborhoodColors.Count / 2];
+
+                    // Установка цвета пикселя в медианный цвет окрестности
+                    result[x][y] = medianColor;
+                }
+            }
+
+            return result;
+        }
+
+        private void filterBtn_Click(object sender, EventArgs e)
+        {
+            if (!filtered)
+            {
+                currImage = pictureBox1.Image;
+                Bitmap bt = (Bitmap)pictureBox1.Image;
+                Color[][] cl = GetBitMapColorMatrix(bt);
+                Color[][] filteredMatrix = ApplyMedianFilter(cl, 5);
+                Bitmap res = GetBitmapFromColorMatrix(filteredMatrix);
+                pictureBox1.Image = res;
+                filtered = true;
+            }
+            else
+            {
+                pictureBox1.Image = currImage; 
+                filtered = false;
+            }
+            
         }
     }
 }
