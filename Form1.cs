@@ -1,5 +1,6 @@
 using System.CodeDom.Compiler;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 
@@ -507,6 +508,64 @@ namespace lab_1._1
             }
 
             return adjustedBitmap;
+        }
+
+        public Bitmap SwapRedAndGreenChannels(Bitmap originalBitmap)
+        {
+            BitmapData bitmapData = originalBitmap.LockBits(new Rectangle(0, 0, originalBitmap.Width, originalBitmap.Height), ImageLockMode.ReadWrite, originalBitmap.PixelFormat);
+
+            int bytesPerPixel = Bitmap.GetPixelFormatSize(originalBitmap.PixelFormat) / 8;
+            int byteCount = bitmapData.Stride * originalBitmap.Height;
+            byte[] pixels = new byte[byteCount];
+            IntPtr ptrFirstPixel = bitmapData.Scan0;
+
+            Marshal.Copy(ptrFirstPixel, pixels, 0, pixels.Length);
+
+            for (int i = 0; i < pixels.Length; i += bytesPerPixel)
+            {
+                byte red = pixels[i];
+                byte green = pixels[i + 1];
+
+                // Обмен красного и зеленого каналов
+                pixels[i] = green;
+                pixels[i + 1] = red;
+            }
+
+            Marshal.Copy(pixels, 0, ptrFirstPixel, pixels.Length);
+            originalBitmap.UnlockBits(bitmapData);
+
+            return originalBitmap;
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = SwapRedAndGreenChannels(bmp);
+        }
+
+        public Bitmap RotateImage90Clockwise(Bitmap originalBitmap)
+        {
+            int width = originalBitmap.Width;
+            int height = originalBitmap.Height;
+            Bitmap rotatedBitmap = new Bitmap(height, width);
+
+            // Проход по каждому пикселю изображения
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    Color originalColor = originalBitmap.GetPixel(x, y);
+
+                    // Установка цвета пикселя в повернутом изображении
+                    rotatedBitmap.SetPixel(height - y - 1, x, originalColor);
+                }
+            }
+
+            return rotatedBitmap;
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = RotateImage90Clockwise((Bitmap)pictureBox1.Image);
         }
     }
 }
